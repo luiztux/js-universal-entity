@@ -1,0 +1,43 @@
+{
+  "$id": "https://js-universal-entity.github.io/schema/v0.9.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Universal Entity v0.9",
+  "description": "Open format for live digital entities (people, businesses, places, events)",
+  "type": "object",
+  "required": ["v", "id", "name", "type"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "v": { "const": "0.9" },
+    "id": {
+      "description": "Unique universal identifier (DID, ENS, domain, etc)",
+      "type": "string",
+      "format": "uri"
+    },
+    "name": { "type": "string" },
+    "description": { "type": "string" },
+    "image": { "type": "string", "format": "uri" },
+    "type": { "enum": ["person", "business", "place", "event", "product"] },
+    "static": { "type": "object" },
+    "live": {
+      "type": "object",
+      "properties": {
+        "url": { "type": "string", "format": "uri" },
+        "interval": { "type": "integer", "minimum": 1, "default": 60 },
+        "signature": { "type": "string" }
+      },
+      "required": ["url"]
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title", "url"],
+        "properties": {
+          "title": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "icon": { "type": "string" }
+        }
+      }
+    }
+  }
+}
